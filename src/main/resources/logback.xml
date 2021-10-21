@@ -1,0 +1,92 @@
+<configuration>
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<!-- To enable JMX Management -->
+	<jmxConfigurator />
+
+
+	<appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/analyzer-service.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>./logs/analyzer-service.%d{yyyy-MM-dd}.log.%i.zip</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 30 days' worth of history capped at 3GB total size -->
+	        <maxHistory>30</maxHistory>
+	        <totalSizeCap>3GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%1d{yyyy-MM-dd HH:mm:ss}#[%thread]#%-5level#%logger{40}
+				| %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%1d{yyyy-MM-dd HH:mm:ss.SSS}#[%thread]#%-5level#%logger{40}
+				| %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Hazelcast logging -->
+	<logger level="ERROR" additivity="false" name="com.hazelcast">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+
+	<!-- HikariCP Logging -->
+	<logger level="INFO" additivity="false" name="com.zaxxer.hikari">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+
+	<!-- Omni channel banking logging -->
+	<logger level="INFO" name="com.analyzer">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+	
+	<logger level="DEBUG" name="com.analyzer">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+	
+	<logger name="org.eclipse.gemini.blueprint.extender.internal.activator"
+		level="WARN" additivity="false">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+
+	<logger
+		name="org.eclipse.gemini.blueprint.extender.internal.blueprint.activator"
+		level="WARN" additivity="false">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+
+	<!-- Classes under umbrella of "org" package are avoided in E2E Trace. -->
+	<logger name="org" level="WARN" additivity="false">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+
+
+	<!-- com.ffusion.util.logging.DebugLog is called many times repeatedly. 
+		Hence, avoided in E2E Trace. -->
+	<logger name="common.obj.util.GlobalLogger" level="WARN" additivity="false">
+		<appender-ref ref="LOG_FILE" />
+	</logger>
+
+	<turboFilter class="ch.qos.logback.classic.turbo.DynamicThresholdFilter">
+		<Key>E2E_TRACE</Key>
+		<DefaultThreshold>WARN</DefaultThreshold>
+		<OnHigherOrEqual>ACCEPT</OnHigherOrEqual>
+		<OnLower>NEUTRAL</OnLower>
+		<MDCValueLevelPair>
+			<value>ENABLED</value>
+			<level>debug</level>
+		</MDCValueLevelPair>
+	</turboFilter>
+
+	<!-- Root Level for Logging -->
+	<root level="ERROR">
+		<appender-ref ref="LOG_FILE" />
+	</root>
+</configuration>
