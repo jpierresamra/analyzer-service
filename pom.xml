@@ -114,8 +114,8 @@
 		    <version>8.2.2.jre8</version>
 		</dependency>
 		<dependency>
-		    <groupId>common-obj</groupId>
-  			<artifactId>common-obj</artifactId>
+		    <groupId>bits-analyzer</groupId>
+  		    <artifactId>common-obj</artifactId>
 		    <version>0.0.1</version>
 		</dependency>
 		<!-- if you are using java 9+  -->
