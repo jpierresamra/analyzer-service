@@ -1,0 +1,23 @@
+<settings>
+<profiles>
+  <profile>
+    <id>bits-analyzer</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <repositories>
+      <repository>
+        <id>bits-analyzer</id>
+        <url>https://bits-254605527923.d.codeartifact.us-east-2.amazonaws.com/maven/analyzer/</url>
+      </repository>
+    </repositories>
+  </profile>
+</profiles>
+  <servers>
+    <server>
+      <id>bits-analyzer</id>
+      <username>aws</username>
+      <password>${env.CODEARTIFACT_TOKEN}</password>
+    </server>
+  </servers>
+</settings>

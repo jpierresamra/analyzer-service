@@ -8,7 +8,7 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.analyzer</groupId>
+	<groupId>bits-analyzer</groupId>
 	<artifactId>analyzer-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -19,6 +19,20 @@
 		<spring-cloud-services.version>2.2.3.RELEASE</spring-cloud-services.version>
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
 	</properties>
+	
+	<distributionManagement>
+	  <repository>
+	    <id>bits-analyzer</id>
+	    <name>bits-analyzer</name>
+	    <url>https://bits-254605527923.d.codeartifact.us-east-2.amazonaws.com/maven/analyzer/</url>
+	  </repository>
+	    <snapshotRepository>
+		<id>bits-analyzer</id>
+		<name>bits-analyzer</name>
+		<url>https://bits-254605527923.d.codeartifact.us-east-2.amazonaws.com/maven/analyzer/</url>
+	    </snapshotRepository>
+	</distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -102,7 +116,7 @@
 		<dependency>
 		    <groupId>common-obj</groupId>
   			<artifactId>common-obj</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
+		    <version>0.0.1</version>
 		</dependency>
 		<!-- if you are using java 9+  -->
 		<dependency>
