@@ -1,10 +1,9 @@
 <settings>
-
 <profiles>
   <profile>
     <id>bits-analyzer</id>
     <activation>
-      <activeByDefault>true</activeByDefault>
+      	<activeByDefault>true</activeByDefault>
     </activation>
     <repositories>
       <repository>
